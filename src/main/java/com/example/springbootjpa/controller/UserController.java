@@ -17,9 +17,9 @@ public class UserController {
     }
 
 
-    @PostMapping
-    public void useradd (@RequestBody RequestDto requestDto){
-
+    @PostMapping("/add")
+    public ResponseEntity<ResponseDto> useradd (@RequestBody RequestDto requestDto){
+        return ResponseEntity.ok().body(userService.Useradd(requestDto));
     }
 
 

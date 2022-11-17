@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 public class ResponseDto {
 
     private Long id;
-    private String username;
-    private String message; // password 가 아니라 massage임
 
+    private String username;
+    private String message;
+
+    public ResponseDto(String message) {
+        this.message = message;
+    }
 }

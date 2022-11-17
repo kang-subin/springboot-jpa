@@ -18,21 +18,25 @@ public class UserService {
     }
 
 
-    public ResponseDto Userget(Long id){
+    public ResponseDto Userget(Long id) {
         Optional<User> optUser = userRepository.findById(id);
-        if(optUser.isEmpty()){
+        if (optUser.isEmpty()) {
             return new ResponseDto(id, "", "해당 id 유저가 없습니다.");
         } else {
             User user = optUser.get();
-            return new ResponseDto (user.getId(), user.getUsername(), "");
+            return new ResponseDto(user.getId(), user.getUsername(), "");
 
         }
     }
 
-
-//    public void Useradd(RequestDto requestDto) {
-//        User user = requestDto.toUser();
-//        User saveUser = userRepository.save(user);
-//    }
-
+    public ResponseDto Useradd(RequestDto requestDto) {
+        Optional<User> seleteUser = userRepository.findByUsername(requestDto.getUsername());
+        User user = requestDto.toUser();
+        if (seleteUser.isEmpty()) {
+            User saveUser = userRepository.save(user);
+            return new ResponseDto(saveUser.getId(), saveUser.getUsername(), "회원 등록 성공");
+        } else {
+            return new ResponseDto("이 user는 이미 존재 합니다. 다른 이름을 사용하세요");
+        }
+    }
 }
